@@ -11,6 +11,8 @@ framework will work with backtrader to test your options trading strategies.
   - `pip install pipenv`
 - run `pipenv install --dev` to install the dependencies
 - run `pipenv shell` to activate the virtual environment
+- run `pytest` to run the tests
+  - `pytest -vv` to run the tests with more verbosity
 - run `pcmd` to run the CLI
 
 ## CLI Examples
