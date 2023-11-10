@@ -4,7 +4,14 @@ This library is a framework for testing stock options strategies. It works along
 However, testing options trading strategies is much more complicated. This
 framework will work with backtrader to test your options trading strategies.
 
+## Getting Started
 
+- clone this repo
+- ensure pipenv is installed
+  - `pip install pipenv`
+- run `pipenv install --dev` to install the dependencies
+- run `pipenv shell` to activate the virtual environment
+- run `pcmd` to run the CLI
 
 ## CLI Examples
 
