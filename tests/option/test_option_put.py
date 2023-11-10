@@ -1,3 +1,17 @@
+
+
+
+def test_put_option_get_close_price_is_zero_when_option_expires_otm():
+    test_option = get_test_put_option()
+    test_option.open_trade(1)
+    _, spot_price, bid, ask, price = get_test_put_option_update_values_3()
+    test_option.update(at_expiration_quote_date, spot_price, bid, ask, price)
+
+    assert test_option.otm()
+    assert test_option.option_quote.price != 0.0
+    assert test_option.get_closing_price() == 0.0
+
+
 @pytest.mark.parametrize(
     "open_qty, cqty1, cqty2, close_date, close_price, close_pnl, pnl_pct, close_fees, closed_qty, remaining_qty",
     [(10, 2, 3, test_update_quote_date2, 7.0, 2_750.0, 1.8333, 2.5, -5, 5),

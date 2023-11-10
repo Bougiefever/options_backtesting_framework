@@ -62,18 +62,6 @@ def test_total_fees_returns_all_fees_incurred():
 
 
 
-
-def test_put_option_get_close_price_is_zero_when_option_expires_otm():
-    test_option = get_test_put_option()
-    test_option.open_trade(1)
-    _, spot_price, bid, ask, price = get_test_put_option_update_values_3()
-    test_option.update(at_expiration_quote_date, spot_price, bid, ask, price)
-
-    assert test_option.otm()
-    assert test_option.option_quote.price != 0.0
-    assert test_option.get_closing_price() == 0.0
-
-
 def test_otm_and_itm_equal_none_when_option_does_not_have_quote_data():
     test_option = Option(1, ticker, 100, test_expiration, OptionType.CALL)
 
