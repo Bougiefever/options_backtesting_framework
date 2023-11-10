@@ -56,7 +56,7 @@ def ticker():
 
 
 @pytest.fixture
-def call_option(quote_date,ticker,expiration):
+def call_option(quote_date, ticker, expiration):
     """Fixture for call option"""
     _id, strike, spot_price, bid, ask, price = (1, 100.0, 90.0, 1.0, 2.0, 1.5)
     return Option(
@@ -113,7 +113,7 @@ def call_option_update_values_3(update_quote_date3):
 
 
 @pytest.fixture
-def call_option_extended_properties(ticker,expiration,quote_date):
+def call_option_extended_properties(ticker, expiration, quote_date):
     """Fixture for call option with extended properties"""
     _id = 1
     strike = 100
@@ -149,7 +149,7 @@ def call_option_extended_properties(ticker,expiration,quote_date):
 
 
 @pytest.fixture
-def put_option(ticker,expiration,quote_date):
+def put_option(ticker, expiration, quote_date):
     """Fixture for put option"""
     _id, strike, spot_price, bid, ask, price = (1, 100.0, 105.0, 1.0, 2.0, 1.5)
     return Option(
@@ -206,7 +206,7 @@ def put_option_update_values_3(update_quote_date3):
 
 
 @pytest.fixture
-def put_option_with_extended_properties(ticker,expiration,quote_date):
+def put_option_with_extended_properties(ticker, expiration, quote_date):
     """Fixture for put option with extended properties"""
     _id = 1
     strike = 100
