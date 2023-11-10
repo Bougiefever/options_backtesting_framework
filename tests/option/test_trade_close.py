@@ -3,10 +3,12 @@ This module contains tests for the trade_close_records property of the Option cl
 """
 
 
-def test_trade_close_records_returns_all_close_trades(call_option,call_option_update_values_1,call_option_update_values_2):
+def test_trade_close_records_returns_all_close_trades(
+    call_option, call_option_update_values_1, call_option_update_values_2
+):
     """
     Test that the trade_close_records property returns all close trades.
-    
+
     Parameters:
     call_option (Option): An instance of the Option class.
     option_update_values_1 (tuple): A tuple containing quote_date, spot_price, bid, ask, price values for the first update.
