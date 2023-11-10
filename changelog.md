@@ -1,6 +1,12 @@
 # Change log
 
-## 2023-1-09 - v0.1.0.b
+## 2023-11-09 - v0.1.0.c
+
+- refactored 105 passing tests to use the new `conftest.py` fixtures file
+- there are some tests that still need to be implemented to use the new fixtures
+
+
+## 2023-11-09 - v0.1.0.b
 
 ### Added
 - Added new test file `tests/test_enums.py` to verify the dynaconf implementation
