@@ -65,7 +65,6 @@ def test_otm_and_itm_equal_none_when_option_does_not_have_quote_data(
     assert test_option.otm() is None
 
 
-
 def test_get_open_profit_loss_percent_raises_exception_if_trade_was_not_opened(
     call_option,
 ):
@@ -76,7 +75,6 @@ def test_get_open_profit_loss_percent_raises_exception_if_trade_was_not_opened(
 
     with pytest.raises(Exception, match="No trade has been opened."):
         test_option.get_open_profit_loss_percent()
-
 
 
 @pytest.mark.parametrize(
