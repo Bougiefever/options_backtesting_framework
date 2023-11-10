@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='options_framework',
-    version='0.1.0.a',
+    version='0.1.0.b',
     packages=find_packages(where='src'),
     package_dir={'': 'src'},
     entry_points={

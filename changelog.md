@@ -1,5 +1,13 @@
 # Change log
 
+## 2023-1-09 - v0.1.0.b
+
+### Added
+- Added new test file `tests/test_enums.py` to verify the dynaconf implementation
+
+### Modified
+- Updated `settings.toml` now contains option type enums
+
 ## 2023-11-09 - v0.1.0.a
 
 - Update README.md with pytest example

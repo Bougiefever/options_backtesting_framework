@@ -1,0 +1,31 @@
+ [OptionType]
+ CALL = 1
+ PUT = 2
+
+ [TransactionType]
+ BUY = 1
+ SELL = 2
+
+ [OptionPositionType]
+ SHORT = 1
+ LONG = 2
+
+ [OptionCombinationType]
+ SINGLE = 1
+ VERTICAL = 2
+ RATIO = 3
+ CALENDAR = 4
+ DIAGONAL = 5
+ STRADDLE = 6
+ STRANGLE = 7
+ BUTTERFLY = 8
+ IRON_BUTTERFLY = 9
+ CONDOR = 10
+ IRON_CONDOR = 11
+ COLLAR = 12
+ CUSTOM = 100
+
+ [OptionTradeType]
+ CREDIT = 1
+ DEBIT = 2
+
