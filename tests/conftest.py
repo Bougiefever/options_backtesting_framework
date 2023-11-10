@@ -56,7 +56,7 @@ def ticker():
 
 
 @pytest.fixture
-def call_option():
+def call_option(quote_date,ticker,expiration):
     """Fixture for call option"""
     _id, strike, spot_price, bid, ask, price = (1, 100.0, 90.0, 1.0, 2.0, 1.5)
     return Option(
@@ -74,7 +74,7 @@ def call_option():
 
 
 @pytest.fixture
-def call_option_update_values_1():
+def call_option_update_values_1(update_quote_date):
     """Fixture for first set of call option update values"""
     quote = Quote(
         quote_date=update_quote_date,
@@ -87,7 +87,7 @@ def call_option_update_values_1():
 
 
 @pytest.fixture
-def call_option_update_values_2():
+def call_option_update_values_2(update_quote_date2):
     """Fixture for second set of call option update values"""
     quote = Quote(
         quote_date=update_quote_date2,
@@ -100,7 +100,7 @@ def call_option_update_values_2():
 
 
 @pytest.fixture
-def call_option_update_values_3():
+def call_option_update_values_3(update_quote_date3):
     """Fixture for third set of call option update values"""
     quote = Quote(
         quote_date=update_quote_date3,
@@ -113,7 +113,7 @@ def call_option_update_values_3():
 
 
 @pytest.fixture
-def call_option_extended_properties():
+def call_option_extended_properties(ticker,expiration,quote_date):
     """Fixture for call option with extended properties"""
     _id = 1
     strike = 100
@@ -149,7 +149,7 @@ def call_option_extended_properties():
 
 
 @pytest.fixture
-def put_option():
+def put_option(ticker,expiration,quote_date):
     """Fixture for put option"""
     _id, strike, spot_price, bid, ask, price = (1, 100.0, 105.0, 1.0, 2.0, 1.5)
     return Option(
@@ -167,7 +167,7 @@ def put_option():
 
 
 @pytest.fixture
-def put_option_update_values_1():
+def put_option_update_values_1(update_quote_date):
     """Fixture for first set of put option update values"""
     quote = Quote(
         quote_date=update_quote_date,
@@ -180,7 +180,7 @@ def put_option_update_values_1():
 
 
 @pytest.fixture
-def put_option_update_values_2():
+def put_option_update_values_2(update_quote_date2):
     """Fixture for second set of put option update values"""
     quote = Quote(
         quote_date=update_quote_date2,
@@ -193,7 +193,7 @@ def put_option_update_values_2():
 
 
 @pytest.fixture
-def put_option_update_values_3():
+def put_option_update_values_3(update_quote_date3):
     """Fixture for third set of put option update values"""
     quote = Quote(
         quote_date=update_quote_date3,
@@ -206,7 +206,7 @@ def put_option_update_values_3():
 
 
 @pytest.fixture
-def put_option_with_extended_properties():
+def put_option_with_extended_properties(ticker,expiration,quote_date):
     """Fixture for put option with extended properties"""
     _id = 1
     strike = 100
