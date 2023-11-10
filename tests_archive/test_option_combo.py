@@ -1,4 +1,4 @@
-from options_framework.spreads.option_combo import OptionCombination
+from options_framework_archive.spreads.option_combo import OptionCombination
 from options_test_helper import *
 
 def test_kwargs_are_set_as_attributes():

@@ -1,7 +1,7 @@
 import pytest
 
-from options_framework.option_types import OptionCombinationType, OptionTradeType
-from options_framework.spreads.vertical import Vertical
+from options_framework_archive.option_types import OptionCombinationType, OptionTradeType
+from options_framework_archive.spreads.vertical import Vertical
 from options_test_helper import *
 
 def test_has_correct_option_combination_type():

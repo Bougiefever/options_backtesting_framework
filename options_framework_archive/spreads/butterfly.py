@@ -1,5 +1,5 @@
 from sqlite3 import SQLITE_IOERR_BLOCKED
-from options_framework.spreads.option_combo import OptionCombination
+from options_framework_archive.spreads.option_combo import OptionCombination
 
 class Butterfly(OptionCombination):
 

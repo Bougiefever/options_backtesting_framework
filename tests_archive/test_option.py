@@ -1,7 +1,7 @@
 import pytest
 
-from options_framework.option_types import OptionPositionType
-import options_framework.option as option
+from options_framework_archive.option_types import OptionPositionType
+import options_framework_archive.option as option
 from options_test_helper import *
 
 
