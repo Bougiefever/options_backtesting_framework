@@ -1,4 +1,3 @@
-
 def test_dte_is_none_when_option_does_not_have_quote_data():
     test_option = Option(1, ticker, 100, test_expiration, OptionType.CALL)
 
@@ -22,10 +21,20 @@ def test_dte_is_updated_when_quote_date_is_updated():
     assert test_option.dte() == expected_dte
 
 
-@pytest.mark.parametrize("expiration_datetime",
-                         [datetime.datetime.strptime("2021-07-16 09:31:00.000000", "%Y-%m-%d %H:%M:%S.%f"),
-                          datetime.datetime.strptime("2021-07-16 11:00:00.000000", "%Y-%m-%d %H:%M:%S.%f"),
-                          datetime.datetime.strptime("2021-07-16 16:15:00.000000", "%Y-%m-%d %H:%M:%S.%f")])
+@pytest.mark.parametrize(
+    "expiration_datetime",
+    [
+        datetime.datetime.strptime(
+            "2021-07-16 09:31:00.000000", "%Y-%m-%d %H:%M:%S.%f"
+        ),
+        datetime.datetime.strptime(
+            "2021-07-16 11:00:00.000000", "%Y-%m-%d %H:%M:%S.%f"
+        ),
+        datetime.datetime.strptime(
+            "2021-07-16 16:15:00.000000", "%Y-%m-%d %H:%M:%S.%f"
+        ),
+    ],
+)
 def test_dte_is_zero_on_expiration_day(expiration_datetime):
     test_option = get_test_call_option()
     _, spot_price, bid, ask, price = get_test_put_option_update_values_1()
