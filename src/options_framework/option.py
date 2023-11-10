@@ -1,8 +1,9 @@
+from collections import namedtuple
 import datetime
 import math
 from options_framework.config import settings
 from options_framework.utils.helpers import decimalize_0, decimalize_2, decimalize_4
-from collections import namedtuple
+
 
 optional_fields = [
     "open_interest",
