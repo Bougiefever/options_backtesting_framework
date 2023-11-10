@@ -1,3 +1,7 @@
+"""
+This module contains tests for the Option class initialization.
+"""
+
 from datetime import datetime
 import pytest
 from options_framework.option import Option
@@ -6,6 +10,9 @@ from options_framework.config import settings
 
 # Test initialization
 def test_option_init_with_only_option_contract_parameters(ticker, expiration):
+    """
+    Test the initialization of an Option instance with only option contract parameters.
+    """
     _id = 1
     strike = 100
     test_option = Option(_id, ticker, strike, expiration, settings.OptionType.CALL)
@@ -26,6 +33,9 @@ def test_option_init_with_only_option_contract_parameters(ticker, expiration):
 
 
 def test_option_init_with_quote_data(ticker, expiration, quote_date):
+    """
+    Test the initialization of an Option instance with quote data.
+    """
     _id = 1
     strike = 100
     spot_price, bid, ask, price = (95, 1.0, 2.0, 1.5)
@@ -51,6 +61,9 @@ def test_option_init_with_quote_data(ticker, expiration, quote_date):
 
 
 def test_option_init_with_extended_properties(ticker, expiration, quote_date):
+    """
+    Test the initialization of an Option instance with extended properties.
+    """
     spot_price, bid, ask, price, delta, gamma, theta, vega, open_interest, rho, iv = (
         95,
         1.0,
@@ -117,6 +130,9 @@ def test_option_init_with_extended_properties(ticker, expiration, quote_date):
 
 @pytest.mark.xfail(reason="Option does not have a 'user_defined' member")
 def test_option_init_with_user_defined_attributes(ticker, expiration, quote_date):
+    """
+    Test the initialization of an Option instance with user-defined attributes.
+    """
     _id = 1
     strike = 100
     test_value = "test value"
@@ -162,6 +178,9 @@ def test_option_init_with_user_defined_attributes(ticker, expiration, quote_date
 
 
 def test_option_init_raises_exception_if_missing_required_fields(ticker, expiration):
+    """
+    Test the initialization of an Option instance raises an exception if missing required fields.
+    """
     # missing id
     _id = None
     with pytest.raises(ValueError, match="option_id is required"):
@@ -222,6 +241,9 @@ def test_option_init_raises_exception_if_missing_required_fields(ticker, expirat
 def test_option_init_raises_exception_if_quote_date_is_greater_than_expiration(
     ticker, expiration
 ):
+    """
+    Test the initialization of an Option instance raises an exception if quote date is greater than expiration.
+    """
     bad_open_date = datetime.strptime(
         "2021-07-17 09:45:00.000000", "%Y-%m-%d %H:%M:%S.%f"
     )
