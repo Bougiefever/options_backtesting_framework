@@ -1,7 +1,12 @@
+"""
+This module contains tests for the enums defined in the options_framework.config.settings module.
+These tests ensure that the enum values do not change unexpectedly, which could cause issues in other parts of the codebase.
+"""
+
 from options_framework.config import settings
 
-def test_the_enums():
 
+def test_the_enums():
     assert settings.OptionType.CALL == 1
     assert settings.OptionType.PUT == 2
 
