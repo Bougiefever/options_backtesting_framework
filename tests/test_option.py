@@ -5,46 +5,10 @@ import options_framework_archive.option as option
 from options_test_helper import *
 
 
-@pytest.mark.parametrize("test_option, expected_repr", [
-    (get_test_call_option(), '<CALL XYZ 100.0 2021-07-16>'),
-    (get_test_put_option(), '<PUT XYZ 100.0 2021-07-16>')])
-def test_call_option_string_representation(test_option, expected_repr):
-    assert str(test_option) == expected_repr
 
 
 
-@pytest.mark.parametrize(
-    "open_qty, cqty1, cqty2, close_date, close_price, close_pnl, pnl_pct, close_fees, closed_qty, remaining_qty",
-    [(10, 2, 3, test_update_quote_date2, 7.0, 2_750.0, 1.8333, 2.5, -5, 5),
-     (-10, -3, -5, test_update_quote_date2, 6.88, -4_300, -2.8667, 4.0, 8, -2),
-     (10, 8, 1, test_update_quote_date2, 9.44, 7_150.0, 4.7667, 4.5, -9, 1),
-     (-10, -1, -1, test_update_quote_date2, 7.5, -1_200.0, -0.8000, 1.0, 2, -8)
-     ])
-def test_put_option_close_trade_values_with_multiple_close_trades(open_qty, cqty1, cqty2, close_date, close_price,
-                                                                   close_pnl, pnl_pct, close_fees,
-                                                                   closed_qty, remaining_qty):
-    test_option = get_test_put_option()
-    test_option.fee_per_contract = standard_fee
-    test_option.open_trade(open_qty)
-    # first update
-    quote_date, spot_price, bid, ask, price = get_test_put_option_update_values_1()
-    test_option.update(quote_date, spot_price, bid, ask, price)
-    test_option.close_trade(quantity=cqty1)
 
-    # second update
-    quote_date, spot_price, bid, ask, price = get_test_put_option_update_values_2()
-    test_option.update(quote_date, spot_price, bid, ask, price)
-    test_option.close_trade(quantity=cqty2)
-
-    # get close info for closed trades
-    trade_close_info = test_option.get_trade_close_info()
-    assert trade_close_info.date == close_date
-    assert trade_close_info.price == close_price
-    assert trade_close_info.profit_loss == close_pnl
-    assert trade_close_info.fees == close_fees
-
-    assert trade_close_info.quantity == closed_qty
-    assert test_option.quantity == remaining_qty
 
 
 def test_trade_close_records_returns_all_close_trades():
@@ -118,42 +82,6 @@ def test_otm_and_itm_equal_none_when_option_does_not_have_quote_data():
 
 
 
-
-def test_is_expired_returns_none_when_no_quote_data():
-    test_option = Option(1, ticker, 100, test_expiration, OptionType.CALL)
-
-    assert test_option.is_expired() is None
-
-
-@pytest.mark.parametrize("expiration_date_test, quote_date, expected_result", [
-    (datetime.datetime.strptime("07-16-2021", "%m-%d-%Y"),
-     datetime.datetime.strptime("2021-07-01 09:45:00.000000", "%Y-%m-%d %H:%M:%S.%f"), False),
-    (datetime.datetime.strptime("06-30-2021", "%m-%d-%Y"),
-     datetime.datetime.strptime("2021-07-01 09:45:00.000000", "%Y-%m-%d %H:%M:%S.%f"), True),
-    (datetime.datetime.strptime("07-16-2021", "%m-%d-%Y"),
-     datetime.datetime.strptime("2021-07-16 09:45:00.000000", "%Y-%m-%d %H:%M:%S.%f"), False),
-    (datetime.datetime.strptime("07-16-2021", "%m-%d-%Y"),
-     datetime.datetime.strptime("2021-07-16 16:14:00.000000", "%Y-%m-%d %H:%M:%S.%f"), False),
-    (datetime.datetime.strptime("07-16-2021", "%m-%d-%Y"),
-     datetime.datetime.strptime("2021-07-16 16:15:00.000000", "%Y-%m-%d %H:%M:%S.%f"), True),
-    (datetime.datetime.strptime("07-16-2021", "%m-%d-%Y"),
-     datetime.datetime.strptime("2021-07-16", "%Y-%m-%d"), False),
-    (datetime.datetime.strptime("07-16-2021", "%m-%d-%Y"),
-     datetime.datetime.strptime("2021-07-17", "%Y-%m-%d"), True)])
-def test_is_expired_returns_correct_result(expiration_date_test, quote_date, expected_result):
-    test_option = get_test_call_option()
-
-    # cheat to set data manually
-    contract = option.OptionContract(1, ticker, expiration_date_test, 100.0, OptionType.CALL)
-    test_option._option_contract = contract
-
-    _, spot_price, bid, ask, price = get_test_put_option_update_values_1()
-    quote = option.OptionQuote(quote_date, spot_price, bid, ask, price)
-    test_option._option_quote = quote
-
-    actual_result = test_option.is_expired()
-
-    assert actual_result == expected_result
 
 
 def test_get_open_profit_loss_percent_raises_exception_if_trade_was_not_opened():

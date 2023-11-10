@@ -1,3 +1,10 @@
+@pytest.mark.parametrize("test_option, expected_repr", [
+    (get_test_call_option(), '<CALL XYZ 100.0 2021-07-16>'),
+    (get_test_put_option(), '<PUT XYZ 100.0 2021-07-16>')])
+def test_call_option_string_representation(test_option, expected_repr):
+    assert str(test_option) == expected_repr
+
+
 def test_call_option_get_close_price_is_zero_when_option_expires_otm():
     test_option = get_test_put_option()
     test_option.open_trade(1)
