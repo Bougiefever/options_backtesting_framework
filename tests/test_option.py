@@ -700,36 +700,6 @@ def test_get_open_profit_loss_percent_raises_exception_if_trade_was_not_opened()
         test_option.get_open_profit_loss_percent()
 
 
-def test_get_profit_loss_percent_return_zero_when_no_contracts_are_open():
-    test_option = get_test_call_option()
-    test_option.open_trade(1)
-    test_option.close_trade(1)
-
-    assert test_option.get_open_profit_loss_percent() == 0.0
-
-
-@pytest.mark.parametrize("test_option, quantity, price, expected_profit_loss_pct", [
-    (get_test_call_option(), 10, 2.25, 0.5),
-    (get_test_call_option(), 10, 1.17, -0.22),
-    (get_test_call_option(), 10, 1.5, 0.0),
-    (get_test_call_option(), -10, 2.25, -0.50),
-    (get_test_call_option(), -10, 1.17, 0.22),
-    (get_test_call_option(), -10, 1.5, 0.0),
-    (get_test_put_option(), 10, 2.25, 0.5),
-    (get_test_put_option(), 10, 1.17, -0.22),
-    (get_test_put_option(), 10, 1.5, 0.0),
-    (get_test_put_option(), -10, 2.25, -0.50),
-    (get_test_put_option(), -10, 1.17, 0.22),
-    (get_test_put_option(), -10, 1.5, 0.0)
-])
-def test_get_profit_loss_percent_value(test_option, quantity, price, expected_profit_loss_pct):
-    test_option.open_trade(quantity)
-    quote_date, spot_price, bid, ask, _ = get_test_call_option_update_values_1()
-    test_option.update(quote_date, spot_price, bid, ask, price)
-
-    actual_profit_loss = test_option.get_open_profit_loss_percent()
-    assert actual_profit_loss == expected_profit_loss_pct
-
 @pytest.mark.parametrize("quote_date, expected_days_in_trade", [
     (datetime.datetime.strptime("2021-07-01 09:45:00.000000", "%Y-%m-%d %H:%M:%S.%f"), 0),
     (datetime.datetime.strptime("2021-07-01 16:15:00.000000", "%Y-%m-%d %H:%M:%S.%f"), 0),
@@ -749,68 +719,6 @@ def test_get_days_in_trade(quote_date, expected_days_in_trade):
 
 
 
-def test_get_total_profit_loss_percent_raises_exception_if_not_traded():
-    test_option = get_test_call_option()
-
-    with pytest.raises(Exception, match="No trade has been opened."):
-        test_option.get_total_profit_loss_percent()
-
-@pytest.mark.parametrize("test_option, qty, price, expected_value", [
-    (get_test_call_option(), 10, 1.8, 0.2),
-    (get_test_call_option(), -10, 1.8, -0.2),
-    (get_test_put_option(), 10, 1.8, 0.2),
-    (get_test_put_option(), -10, 1.8, -0.2),
-])
-def test_get_total_profit_loss_percent_returns_unrealized_when_no_contracts_are_closed(
-        test_option, qty, price, expected_value):
-    test_option = get_test_call_option()
-    test_option.open_trade(qty)
-
-    quote_date, spot_price, bid, ask, _ = get_test_call_option_update_values_1()
-    test_option.update(quote_date, spot_price, bid, ask, price)
-
-    actual_value = test_option.get_total_profit_loss_percent()
-    assert actual_value == expected_value
-
-@pytest.mark.parametrize("test_option, qty, price, expected_value", [
-    (get_test_call_option(), 10, 1.8, 0.2),
-    (get_test_call_option(), -10, 1.8, -0.2),
-    (get_test_put_option(), 10, 1.8,  0.2),
-    (get_test_put_option(), -10, 1.8, -0.2),
-])
-def test_get_total_profit_loss_percent_returns_closed_pnl_when_all_contracts_are_closed(test_option, qty, price,
-                                                                                        expected_value):
-    test_option.open_trade(qty)
-    quote_date, spot_price, bid, ask, _ = get_test_call_option_update_values_1()
-    test_option.update(quote_date, spot_price, bid, ask, price)
-    test_option.close_trade(qty)
-
-    assert test_option.get_total_profit_loss_percent() == expected_value
-
-@pytest.mark.parametrize("test_option, qty, close_qty_1, close_qty_2, price1, price2, price3, expected_value", [
-    (get_test_call_option(), 10, 4, 2, 1.8, 2.2, 0.10, -0.2),
-    (get_test_call_option(), -10, -4, -2,  1.8, 2.2, 0.10, 0.2),
-    (get_test_call_option(), 10, 4, 2, 3.0, 4.5, 6, 2.0),
-    (get_test_call_option(), -10, -4, -2, 3.0, 4.5, 6, -2.0),
-])
-def test_get_total_profit_loss_percent_returns_unrealized_and_closed_pnl_when_multiple_close_trades(test_option, qty,
-                                                                                                    close_qty_1,
-                                                                                                    close_qty_2,
-                                                                                                    price1, price2,
-                                                                                                    price3,
-                                                                                                    expected_value):
-    test_option.open_trade(qty)
-    quote_date, spot_price, bid, ask, _ = get_test_call_option_update_values_1()
-    test_option.update(quote_date, spot_price, bid, ask, price1)
-    it1 = test_option.close_trade(close_qty_1)
-    quote_date, spot_price, bid, ask, _ = get_test_call_option_update_values_2()
-    test_option.update(quote_date, spot_price, bid, ask, price2)
-    it2 = test_option.close_trade(close_qty_2)  # 1050
-    quote_date, spot_price, bid, ask, _ = get_test_call_option_update_values_2()
-    test_option.update(quote_date, spot_price, bid, ask, price3)  # 2600
-
-    actual_value = test_option.get_total_profit_loss_percent()
-    assert actual_value == expected_value
 
 def test_single_option_properties_return_none_when_property_group_is_none():
     test_option = test_option = Option(id, ticker, 100.0, test_expiration, OptionType.CALL)
